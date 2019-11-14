@@ -11,7 +11,7 @@ Plugins:
 Install any plugin with [antibody](https://getantibody.github.io/), e.g. just use command below if you want to install `poetry` plugin:
 
 ```shell
-$ antibody bundle Gr1N/zsh-plugins path:plugins
+$ antibody bundle Gr1N/zsh-plugins path:poetry
 ```
 
 ## Contributing
