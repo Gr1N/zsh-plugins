@@ -1,5 +1,3 @@
-#compdef poetry
-
 _poetry() {
     local state com cur
 
@@ -237,5 +235,4 @@ _poetry() {
     esac
 }
 
-_poetry "$@"
 compdef _poetry "${POETRY_DIR:-$HOME/.poetry}"/bin/poetry
