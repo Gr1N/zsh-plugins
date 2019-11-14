@@ -2,13 +2,21 @@
 
 Just a dump of `zsh` plugins. Be careful and think twice if you want to use them :upside_down_face:.
 
+Plugins:
+
+* `poetry` — shell completions for the [poetry](https://poetry.eustace.io/) a tool for dependency management and packaging in Python.
+
 ## Installation
 
-TBD
+Install any plugin with [antibody](https://getantibody.github.io/), e.g. just use command below if you want to install `poetry` plugin:
+
+```shell
+$ antibody bundle Gr1N/zsh-plugins path:plugins
+```
 
 ## Contributing
 
-TBD
+Feel free to send any PR you want, even a strange one!
 
 ## License
 
