@@ -1,6 +1,6 @@
 #compdef poetry
 
-_poetry_complete() {
+_poetry() {
     local state com cur
 
     cur=${words[${#words[@]}]}
@@ -237,5 +237,5 @@ _poetry_complete() {
     esac
 }
 
-_poetry_complete "$@"
-compdef _poetry_complete "${POETRY_DIR:-$HOME/.poetry}"/bin/poetry
+_poetry "$@"
+compdef _poetry "${POETRY_DIR:-$HOME/.poetry}"/bin/poetry
