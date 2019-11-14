@@ -4,6 +4,7 @@ Just a dump of `zsh` plugins. Be careful and think twice if you want to use them
 
 Plugins:
 
+* `direnv` — setup shell hooks for the [direnv](https://direnv.net/) a tool which can help you to automatically load and unload environment variables;
 * `poetry` — shell completions for the [poetry](https://poetry.eustace.io/) a tool for dependency management and packaging in Python.
 
 ## Installation
