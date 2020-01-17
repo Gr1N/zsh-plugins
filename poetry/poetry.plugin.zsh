@@ -235,4 +235,9 @@ _poetry() {
   esac
 }
 
-compdef _poetry "${POETRY_DIR:-$HOME/.poetry}"/bin/poetry
+# Find where poetry should be installed
+POETRY_DIR="${POETRY_DIR:-$HOME/.poetry}"
+
+if [[ -f "$POETRY_DIR/bin/poetry" ]]; then
+  compdef _poetry "$POETRY_DIR/bin/poetry"
+fi
