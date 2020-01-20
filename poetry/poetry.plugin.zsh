@@ -19,37 +19,35 @@ _poetry() {
       "--no-ansi:Disable ANSI output"
       "--no-interaction:Do not ask any interactive question"
       "--quiet:Do not output any message"
-      "--verbose:Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug"
+      "--verbose:Increase the verbosity of messages: \\\"-v\\\" for normal output, \\\"-vv\\\" for more verbose output and \\\"-vvv\\\" for debug"
       "--version:Display this application version"
     )
   elif [[ $cur == $com ]]; then
     state="command"
     coms=(
-      "about:Short information about Poetry."
-      "add:Add a new dependency to pyproject.toml."
+      "about:Shows information about Poetry."
+      "add:Adds a new dependency to pyproject.toml."
       "build:Builds a package, as a tarball and a wheel by default."
-      "cache\:clear:Clears poetry\'s cache."
+      "cache:Interact with Poetry\'s cache"
       "check:Checks the validity of the pyproject.toml file."
-      "config:Sets/Gets config options."
-      "debug\:info:Shows debug information."
-      "debug\:resolve:Debugs dependency resolution."
-      "develop:Installs the current project in development mode. \(Deprecated\)"
-      "help:Displays help for a command"
+      "config:Manages configuration settings."
+      "debug:Debug various elements of Poetry."
+      "env:Interact with Poetry\'s project environments."
+      "export:Exports the lock file to alternative formats."
+      "help:Display the manual of a command"
       "init:Creates a basic pyproject.toml file in the current directory."
       "install:Installs the project dependencies."
-      "list:Lists commands"
       "lock:Locks the project dependencies."
-      "new:Creates a new Python project at <path\>"
+      "new:Creates a new Python project at <path\>."
       "publish:Publishes a package to a remote repository."
       "remove:Removes a package from the project dependencies."
       "run:Runs a command in the appropriate environment."
-      "script:Executes a script defined in pyproject.toml. \(Deprecated\)"
       "search:Searches for packages on remote repositories."
-      "self\:update:Updates poetry to the latest version."
+      "self:Interact with Poetry directly."
       "shell:Spawns a shell within the virtual environment."
       "show:Shows information about packages."
-      "update:Update dependencies as according to the pyproject.toml file."
-      "version:Bumps the version of the project."
+      "update:Update the dependencies as according to the pyproject.toml file."
+      "version:Shows the version of the project or bumps it when a valid bump rule is provided."
     )
   fi
 
@@ -67,27 +65,23 @@ _poetry() {
         add)
           opts+=(
             "--allow-prereleases:Accept prereleases."
-            "--dev:Add package as development dependency."
-            "--dry-run:Outputs the operations but will not execute anything \(implicitly enables --verbose\)."
+            "--dev:Add as a development dependency."
+            "--dry-run:Output the operations but do not execute anything \(implicitly enables --verbose\)."
             "--extras:Extras to activate for the dependency."
-            "--git:The url of the Git repository."
             "--optional:Add as an optional dependency."
-            "--path:The path to a dependency."
-            "--platform:Platforms for which the dependencies must be installed."
-            "--python:Python version\( for which the dependencies must be installed."
+            "--platform:Platforms for which the dependency must be installed."
+            "--python:Python version for which the dependency must be installed."
           )
           ;;
 
         build)
           opts+=(
-            "--format:Limit the format to either wheel or sdist."
+            "--format:Limit the format to either sdist or wheel."
           )
           ;;
 
-        cache:clear)
-          opts+=(
-            "--all:Clear all entries in cache."
-          )
+        cache)
+          opts+=()
           ;;
 
         check)
@@ -96,58 +90,51 @@ _poetry() {
 
         config)
           opts+=(
-            "--list:List configuration settings"
-            "--unset:Unset configuration setting"
+            "--list:List configuration settings."
+            "--local:Set/Get from the project\'s local configuration."
+            "--unset:Unset configuration setting."
           )
           ;;
 
-        debug:info)
+        debug)
           opts+=()
           ;;
 
-        debug:resolve)
+        env)
+          opts+=()
+          ;;
+
+        export)
           opts+=(
-            "--extras:Extras to activate for the dependency."
-            "--install:Show what would be installed for the current system."
-            "--python:Python version\(s\) to use for resolution."
-            "--tree:Displays the dependency tree."
+            "--dev:Include development dependencies."
+            "--extras:Extra sets of dependencies to include."
+            "--format:Format to export to."
+            "--output:The name of the output file."
+            "--with-credentials:Include credentials for extra indices."
+            "--without-hashes:Exclude hashes from the exported file."
           )
-          ;;
-
-        develop)
-          opts+=()
           ;;
 
         help)
-          opts+=(
-            "--format:The output format \(txt, json, or md\)"
-            "--raw:To output raw command help"
-          )
+          opts+=()
           ;;
 
         init)
           opts+=(
-            "--author:Author name of the package"
-            "--dependency:Package to require with an optional version constraint, e.g. requests:\^2.10.0 or requests=2.11.1"
-            "--description:Description of the package"
-            "--dev-dependency:Package to require for development with an optional version constraint, e.g. requests:\^2.10.0 or requests=2.11.1"
-            "--license:License of the package"
-            "--name:Name of the package")
+            "--author:Author name of the package."
+            "--dependency:Package to require, with an optional version constraint, e.g. requests:\^2.10.0 or requests=2.11.1."
+            "--description:Description of the package."
+            "--dev-dependency:Package to require for development, with an optional version constraint, e.g. requests:\^2.10.0 or requests=2.11.1."
+            "--license:License of the package." "--name:Name of the package."
+          )
           ;;
 
         install)
           opts+=(
-            "--develop:Install given packages in development mode."
-            "--dry-run:Outputs the operations but will not execute anything \(implicitly enables --verbose\)."
+            "--dry-run:Output the operations but do not execute anything \(implicitly enables --verbose\)."
             "--extras:Extra sets of dependencies to install."
-            "--no-dev:Do not install dev dependencies."
-          )
-          ;;
-
-        list)
-          opts+=(
-            "--format:The output format \(txt, json, or md\)"
-            "--raw:To output raw command list"
+            "--no-dev:Do not install the development dependencies."
+            "--no-root:Do not install the root package \(the current project\)."
           )
           ;;
 
@@ -165,6 +152,8 @@ _poetry() {
         publish)
           opts+=(
             "--build:Build the package before publishing."
+            "--cert:Certificate authority to access the repository."
+            "--client-cert:Client certificate to access the repository."
             "--password:The password to access the repository."
             "--repository:The repository to publish the package to."
             "--username:The username to access the repository."
@@ -173,8 +162,8 @@ _poetry() {
 
         remove)
           opts+=(
-            "--dev:Removes a package from the development dependencies."
-            "--dry-run:Outputs the operations but will not execute anything \(implicitly enables --verbose\)."
+            "--dev:Remove a package from the development dependencies."
+            "--dry-run:Output the operations but do not execute anything \(implicitly enables --verbose\)."
           )
           ;;
 
@@ -182,20 +171,12 @@ _poetry() {
           opts+=()
           ;;
 
-        script)
+        search)
           opts+=()
           ;;
 
-        search)
-          opts+=(
-            "--only-name:Search only in name."
-          )
-          ;;
-
-        self:update)
-          opts+=(
-            "--preview:Install prereleases."
-          )
+        self)
+          opts+=()
           ;;
 
         shell)
@@ -206,7 +187,7 @@ _poetry() {
           opts+=(
             "--all:Show all packages \(even those not compatible with current system\)."
             "--latest:Show the latest version."
-            "--no-dev:Do not list the dev dependencies."
+            "--no-dev:Do not list the development dependencies."
             "--outdated:Show the latest version but only for packages that are outdated."
             "--tree:List the dependencies as a tree."
           )
@@ -214,9 +195,9 @@ _poetry() {
 
         update)
           opts+=(
-            "--dry-run:Outputs the operations but will not execute anything \(implicitly enables --verbose\)."
-            "--lock:Do not perform install \(only update the lockfile\)."
-            "--no-dev:Do not install dev dependencies."
+            "--dry-run:Output the operations but do not execute anything \(implicitly enables --verbose\)."
+            "--lock:Do not perform operations \(only update the lockfile\)."
+            "--no-dev:Do not update the development dependencies."
           )
           ;;
 
